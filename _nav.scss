@@ -1,0 +1,27 @@
+
+nav {
+	width: 100%;
+
+	li {
+		display: inline-block;
+		border: 2px solid #555;
+		padding: 5px 7.5px;
+		margin: 3px 5px;
+		cursor: pointer;
+		text-transform: uppercase;
+		font-family: PT Mono;
+		&:first-of-type {
+			margin-left: 0;
+		}
+		&:hover {
+			border: 2px solid #2c3e50;
+			background: $blue;
+			color: white;
+			border-radius: 3px;
+			transition: 0.5s all ease-in-out;
+		}
+	}
+}
+.active {
+	display: inline-block;
+}

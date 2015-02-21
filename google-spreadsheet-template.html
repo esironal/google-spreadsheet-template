@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Toronto Star | Sudbury byelection controversy</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:700,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+        	<h1>Lorem ipsum.</h1>
+        	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, nesciunt.</p>
+        </header>
+        <nav><ul class="theNav"></ul></nav>
+        <main class="clearfix"></main>
+        
+	</div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+        <script>
+        function getJsonFromGoogle(json) {
+        console.log(json);  
+            var entry;
+            var container;
+            var tellmetheId ="";
+
+            for (var i = 0; i < json.feed.entry.length; i++) {
+                entry = json.feed.entry[i];
+
+                // variables for class name + the issue name
+                var gettheIdorClassName = entry.gsx$theclass.$t;
+                var issue = entry.gsx$issue.$t;
+               
+
+                // need to build the nav
+                var createthenav = '<li class="click" id="' + gettheIdorClassName + '">' + issue + '</li>';
+                $('.theNav').append(createthenav);
+
+                // variables for each part of the explainer
+                var issue = '<h3 class="the-issue">' + issue + '</h3>';
+                var howarise = '<p>' + entry.gsx$howarise.$t + '</p>';
+                var ruling = '<p>' + entry.gsx$sccruling.$t + '</p>';
+                var govt = '<p>' + entry.gsx$govtresponse.$t + '</p>';
+                var status = '<p>' + entry.gsx$currentstatus.$t + '</p>';
+                var labelone = '<p class="label">' + entry.gsx$labelone.$t; + '</p>';
+                var labeltwo = '<p class="label">' + entry.gsx$labeltwo.$t; + '</p>';
+                var labelthree = '<p class="label">' + entry.gsx$labelthree.$t; + '</p>';
+                
+               	var container = '<div class="content clearfix ' + gettheIdorClassName + '">' + issue + '<div class="left-wrap">'  + howarise + '</div>' + '<div class="right-wrap">' + labelone + ruling + labeltwo + govt + labelthree + status + '</div>' + '</div>';
+
+               $('main').append(container);
+            }
+
+            // console.log(gettheIdorClassName);
+
+            // hide empty <li> tags
+            $('li:empty').hide();
+            // $('li.click').click(function(){
+            // 	console.log('clicked');
+            // 	$(this).value().toUpperCase();
+            // });
+
+
+            //hide everything, show first content
+            $('.content').hide();
+            $('.content:nth-of-type(1)').fadeIn('slow');
+    	    $('.click').on('click', function(){
+    	    	$('p').removeClass('active')
+    	    	$('.content').hide();
+    	    	var id = $(this).attr('id');
+    	    	$('.' + id).fadeIn('300');
+    	    	$(this).addClass('active');
+    	    });
+        }
+        </script>
+        <script src="https://spreadsheets.google.com/feeds/list/1rW7-RRo6sREDRKp87uKl5xuEySowP5gKOnMpnhkW9pM/1/public/values?alt=json-in-script&callback=getJsonFromGoogle"></script>
+</body>
+</html>
